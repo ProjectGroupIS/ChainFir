@@ -29,7 +29,7 @@ contract Fir {
     }
 
     struct Incident {
-        uint256 occurrenceStart;
+        uint256 occurrenceStart; 
         uint256 occurrenceEnd;
         string place;
         string distanceFromStation;
