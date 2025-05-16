@@ -16,7 +16,7 @@ contract Fir {
         string dob;
         string nationality;
         string occupation;
-        string addr; // 'address' is a reserved word
+        string addr; 
         string phoneNumber;
         string email;
         IDProof idProof;
@@ -29,7 +29,7 @@ contract Fir {
     }
 
     struct Incident {
-        uint256 occurrenceStart; // use timestamp
+        uint256 occurrenceStart; 
         uint256 occurrenceEnd;
         string place;
         string distanceFromStation;
