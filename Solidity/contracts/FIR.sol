@@ -29,7 +29,7 @@ contract Fir {
     }
 
     struct Incident {
-        uint256 occurrenceStart; 
+        uint256 occurrenceStart; // use timestamp
         uint256 occurrenceEnd;
         string place;
         string distanceFromStation;
@@ -84,6 +84,30 @@ contract Fir {
     uint public firCount = 0;
     mapping(uint => FIR) public firs;
 
+
+    function createFir(
+       string memory _firNumber,
+        PoliceStation memory _station,
+        Complainant memory _complainant,
+        Incident memory _incident,
+        Accused[] memory _accused,
+        Witness[] memory _witnesses,
+        Evidence memory _evidence,
+        Investigation memory _investigation
+    )internal view returns(FIR memory){
+        return FIR({
+            firId: firCount,
+            firNumber: _firNumber,
+            filingDateTime: block.timestamp,
+            station: _station,
+            complainant: _complainant,
+            incident: _incident,
+            accused: _accused,
+            witnesses: _witnesses,
+            evidence: _evidence,
+            investigation: _investigation
+        });
+    }
     function fileFIR(
         string memory firNumber,
         PoliceStation memory station,
@@ -93,19 +117,9 @@ contract Fir {
         Witness[] memory witnesses,
         Evidence memory evidence,
         Investigation memory investigation
-    ) public {
-        firs[firCount] = FIR({
-            firId: firCount,
-            firNumber: firNumber,
-            filingDateTime: block.timestamp,
-            station: station,
-            complainant: complainant,
-            incident: incident,
-            accused: accused,
-            witnesses: witnesses,
-            evidence: evidence,
-            investigation: investigation
-        });
-        firCount++;
+    ) public  {
+       FIR memory newFir = createFir(firNumber, station, complainant, incident, accused, witnesses, evidence, investigation);
+       firs[firCount++] = newFir;
     }
+
 }
