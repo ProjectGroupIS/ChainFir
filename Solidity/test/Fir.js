@@ -8,7 +8,8 @@ describe("Fir Contract", function () {
   beforeEach(async function () {
     FirContract = await ethers.getContractFactory("Fir");
     fir = await FirContract.deploy();
-    await fir.deployed();
+    console.log()
+    // await fir.deployed();
   });
 
   it("Should start with zero FIRs", async function () {
