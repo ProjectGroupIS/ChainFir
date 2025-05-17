@@ -84,30 +84,6 @@ contract Fir {
     uint public firCount = 0;
     mapping(uint => FIR) public firs;
 
-
-    function createFir(
-       string memory _firNumber,
-        PoliceStation memory _station,
-        Complainant memory _complainant,
-        Incident memory _incident,
-        Accused[] memory _accused,
-        Witness[] memory _witnesses,
-        Evidence memory _evidence,
-        Investigation memory _investigation
-    )internal view returns(FIR memory){
-        return FIR({
-            firId: firCount,
-            firNumber: _firNumber,
-            filingDateTime: block.timestamp,
-            station: _station,
-            complainant: _complainant,
-            incident: _incident,
-            accused: _accused,
-            witnesses: _witnesses,
-            evidence: _evidence,
-            investigation: _investigation
-        });
-    }
     function fileFIR(
         string memory firNumber,
         PoliceStation memory station,
@@ -118,8 +94,17 @@ contract Fir {
         Evidence memory evidence,
         Investigation memory investigation
     ) public  {
-       FIR memory newFir = createFir(firNumber, station, complainant, incident, accused, witnesses, evidence, investigation);
-       firs[firCount++] = newFir;
+       FIR storage fir = firs[firCount++];
+       fir.firNumber = firNumber;
+       fir.station = station;
+       fir.complainant = complainant;
+       fir.incident = incident;
+       for(uint i=0;i<accused.length;i++)
+            fir.accused.push(accused[i]);
+        for(uint i=0;i<witnesses.length;i++)
+            fir.witnesses.push(witnesses[i]);
+       fir.evidence = evidence;
+       fir.investigation = investigation;
     }
-
 }
+

@@ -1,0 +1,554 @@
+{
+	"compiler": {
+		"version": "0.8.28+commit.7893614a"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "firNumber",
+						"type": "string"
+					},
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "name",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "district",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "state",
+								"type": "string"
+							}
+						],
+						"internalType": "struct Fir.PoliceStation",
+						"name": "station",
+						"type": "tuple"
+					},
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "fullName",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "parentName",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "age",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "gender",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "dob",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "nationality",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "occupation",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "addr",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "phoneNumber",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "email",
+								"type": "string"
+							},
+							{
+								"components": [
+									{
+										"internalType": "string",
+										"name": "idType",
+										"type": "string"
+									},
+									{
+										"internalType": "string",
+										"name": "idNumber",
+										"type": "string"
+									}
+								],
+								"internalType": "struct Fir.IDProof",
+								"name": "idProof",
+								"type": "tuple"
+							}
+						],
+						"internalType": "struct Fir.Complainant",
+						"name": "complainant",
+						"type": "tuple"
+					},
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "occurrenceStart",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "occurrenceEnd",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "place",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "distanceFromStation",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "offenceType",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "description",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "actSections",
+								"type": "string"
+							}
+						],
+						"internalType": "struct Fir.Incident",
+						"name": "incident",
+						"type": "tuple"
+					},
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "name",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "aliasName",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "addr",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "age",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "gender",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "relationWithComplainant",
+								"type": "string"
+							}
+						],
+						"internalType": "struct Fir.Accused[]",
+						"name": "accused",
+						"type": "tuple[]"
+					},
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "name",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "addr",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "contactInfo",
+								"type": "string"
+							}
+						],
+						"internalType": "struct Fir.Witness[]",
+						"name": "witnesses",
+						"type": "tuple[]"
+					},
+					{
+						"components": [
+							{
+								"internalType": "string[]",
+								"name": "documents",
+								"type": "string[]"
+							},
+							{
+								"internalType": "string",
+								"name": "mediaType",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "mediaDescription",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "physicalDescription",
+								"type": "string"
+							}
+						],
+						"internalType": "struct Fir.Evidence",
+						"name": "evidence",
+						"type": "tuple"
+					},
+					{
+						"components": [
+							{
+								"internalType": "bool",
+								"name": "started",
+								"type": "bool"
+							},
+							{
+								"internalType": "string",
+								"name": "ioName",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "ioRank",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "ioBadgeNumber",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "dispatchDate",
+								"type": "string"
+							}
+						],
+						"internalType": "struct Fir.Investigation",
+						"name": "investigation",
+						"type": "tuple"
+					}
+				],
+				"name": "fileFIR",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "firCount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "firs",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "firId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "firNumber",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "filingDateTime",
+						"type": "uint256"
+					},
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "name",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "district",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "state",
+								"type": "string"
+							}
+						],
+						"internalType": "struct Fir.PoliceStation",
+						"name": "station",
+						"type": "tuple"
+					},
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "fullName",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "parentName",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "age",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "gender",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "dob",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "nationality",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "occupation",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "addr",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "phoneNumber",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "email",
+								"type": "string"
+							},
+							{
+								"components": [
+									{
+										"internalType": "string",
+										"name": "idType",
+										"type": "string"
+									},
+									{
+										"internalType": "string",
+										"name": "idNumber",
+										"type": "string"
+									}
+								],
+								"internalType": "struct Fir.IDProof",
+								"name": "idProof",
+								"type": "tuple"
+							}
+						],
+						"internalType": "struct Fir.Complainant",
+						"name": "complainant",
+						"type": "tuple"
+					},
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "occurrenceStart",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "occurrenceEnd",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "place",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "distanceFromStation",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "offenceType",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "description",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "actSections",
+								"type": "string"
+							}
+						],
+						"internalType": "struct Fir.Incident",
+						"name": "incident",
+						"type": "tuple"
+					},
+					{
+						"components": [
+							{
+								"internalType": "string[]",
+								"name": "documents",
+								"type": "string[]"
+							},
+							{
+								"internalType": "string",
+								"name": "mediaType",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "mediaDescription",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "physicalDescription",
+								"type": "string"
+							}
+						],
+						"internalType": "struct Fir.Evidence",
+						"name": "evidence",
+						"type": "tuple"
+					},
+					{
+						"components": [
+							{
+								"internalType": "bool",
+								"name": "started",
+								"type": "bool"
+							},
+							{
+								"internalType": "string",
+								"name": "ioName",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "ioRank",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "ioBadgeNumber",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "dispatchDate",
+								"type": "string"
+							}
+						],
+						"internalType": "struct Fir.Investigation",
+						"name": "investigation",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/FIR.sol": "Fir"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/FIR.sol": {
+			"keccak256": "0xa3e4c73c6819d5f4522fd92e0d659c9c4ffd8c7a25ec4691b85dd86ef5a04aec",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://44ae8b757148bc74e22ba78d05fb8665674de1252390a7ebb597d1af852fc62a",
+				"dweb:/ipfs/QmfFnRK6zBGJCtSfafcuDd797FyVHREdvMtDBq8h9dvsMV"
+			]
+		}
+	},
+	"version": 1
+}
