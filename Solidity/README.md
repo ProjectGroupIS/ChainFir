@@ -1,13 +1,28 @@
-# Sample Hardhat Project
+## Blockchain based Criminal Evidences Management System
+### Introduction:
+* FIR(First Information Record) are highly sensitive public records. Tampering of such records is a criminal offence where a person alters, conceals, falsifies, or destroys evidence with the intent to interfere with an investigation by a law-enforcement, governmental, or regulatory authority.
+* There are registered cases where the suspect/convict escapes tampering evidences, hence there is need of a reliable, fool proof system to maintain and manage crime records.
+* By incorporating the records in a blockchain, authenticity and rigidity of records can be maintained, which also helps to keep the data safe from adversaries. 
+* A peer to peer cloud network enables the decentralization of data. It helps prevent unlawful changes in the data.
+### Idea:
+* Our system presents ways in which the authority can maintain the records  efficiently.
+* Authorities (e.g., Law enforcement agencies and courts) will be able to add and access criminal data. 
+* General users (e.g., selected organizations and/or individuals, airports, visa application centres etc.) can register themselves and will have access to the data so that they can look up criminal records. 
+* Proper and timely access to authentic criminal records is essential to enforce the law. 
+* The effect of corruption on the law enforcement forces will also decrease, as this will cut off an entire scope of corruption by removing any possibility of tampering with criminal records data.
+### Technology Stack:
+* Blockchain
+    * Ethereum, 
+    * Web3, 
+    * Solidity,
+    * IPFS,
+    * Hardhat.
+* Front End (Web DApp)
+    * React JS, 
+* Back End
+    * NodeJS.
+* Hosting Services
+    * Infura (Blockchain),
+    * Metamask.
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.
-
-Try running some of the following tasks:
-
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat ignition deploy ./ignition/modules/Lock.js
-```
+### Instructions to run
