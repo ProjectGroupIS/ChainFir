@@ -7,7 +7,7 @@ describe("Fir Contract", function () {
   let deployer, government, police1, police2, user;
 
   beforeEach(async function () {
-    [deployer, government, police1, police2, user] = await ethers.getSigners();
+    [government,deployer, police1, police2, user] = await ethers.getSigners();
 
     const FirFactory = await ethers.getContractFactory("Fir");
     fir = await FirFactory.deploy(government.address);

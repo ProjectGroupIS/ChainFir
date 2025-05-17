@@ -99,6 +99,7 @@ contract Fir is AccessControl {
     uint public firCount = 0;
     mapping(uint => string) public firHashes;
     mapping(string => bool) public firIpfsHash;
+        
     function fileFIR(string memory ipfsHash)public{
         require(hasRole(POLICE_ROLE, msg.sender),"Caller is not a police officer");
         require(!firIpfsHash[ipfsHash], "FIR already filed");// check if FIR already filed
