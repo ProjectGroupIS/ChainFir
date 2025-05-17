@@ -1,7 +1,22 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.28;
+import "@openzeppelin/contracts/access/AccessControl.sol";
 
-contract Fir {
+contract Fir is AccessControl {
+    bytes32 public constant POLICE_ROLE = keccak256("POLICE_ROLE");
+
+    constructor(address government) {
+       _grantRole(DEFAULT_ADMIN_ROLE, government);
+    }   
+    function addPolice(address police) public onlyRole(DEFAULT_ADMIN_ROLE) {
+        _grantRole(POLICE_ROLE, police);
+    }
+    function removePolice(address police) public onlyRole(DEFAULT_ADMIN_ROLE) {
+        _revokeRole(POLICE_ROLE, police);
+    }
+    function isPolice(address police) public view returns (bool) {
+        return hasRole(POLICE_ROLE, police);
+    }
 
     struct IDProof {
         string idType;
@@ -29,7 +44,7 @@ contract Fir {
     }
 
     struct Incident {
-        uint256 occurrenceStart; // use timestamp
+        uint256 occurrenceStart;
         uint256 occurrenceEnd;
         string place;
         string distanceFromStation;
@@ -82,29 +97,18 @@ contract Fir {
     }
 
     uint public firCount = 0;
-    mapping(uint => FIR) public firs;
+    mapping(uint => string) public firHashes;
+    mapping(string => bool) public firIpfsHash;
+    function fileFIR(string memory ipfsHash)public{
+        require(hasRole(POLICE_ROLE, msg.sender),"Caller is not a police officer");
+        require(!firIpfsHash[ipfsHash], "FIR already filed");// check if FIR already filed
+        firHashes[firCount++] = ipfsHash;
+        firIpfsHash[ipfsHash] = true;
+    }
 
-    function fileFIR(
-        string memory firNumber,
-        PoliceStation memory station,
-        Complainant memory complainant,
-        Incident memory incident,
-        Accused[] memory accused,
-        Witness[] memory witnesses,
-        Evidence memory evidence,
-        Investigation memory investigation
-    ) public  {
-       FIR storage fir = firs[firCount++];
-       fir.firNumber = firNumber;
-       fir.station = station;
-       fir.complainant = complainant;
-       fir.incident = incident;
-       for(uint i=0;i<accused.length;i++)
-            fir.accused.push(accused[i]);
-        for(uint i=0;i<witnesses.length;i++)
-            fir.witnesses.push(witnesses[i]);
-       fir.evidence = evidence;
-       fir.investigation = investigation;
+
+    function getFIR(uint _firId) public view returns (string memory) {
+        return firHashes[_firId];
     }
 }
 

@@ -1,93 +1,57 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
+require("@nomicfoundation/hardhat-chai-matchers");
 
 describe("Fir Contract", function () {
-  let FirContract;
-  let fir;
+  let Fir, fir;
+  let deployer, government, police1, police2, user;
 
   beforeEach(async function () {
-    FirContract = await ethers.getContractFactory("Fir");
-    fir = await FirContract.deploy();
-    console.log()
+    [deployer, government, police1, police2, user] = await ethers.getSigners();
+
+    const FirFactory = await ethers.getContractFactory("Fir");
+    fir = await FirFactory.deploy(government.address);
     // await fir.deployed();
   });
 
-  it("Should start with zero FIRs", async function () {
-    const count = await fir.firCount();
-    expect(count).to.equal(0);
+  it("should set government as admin", async function () {
+    const DEFAULT_ADMIN_ROLE = await fir.DEFAULT_ADMIN_ROLE();
+    expect(await fir.hasRole(DEFAULT_ADMIN_ROLE, government.address)).to.be.true;
   });
 
-  it("Should file a FIR and increase the count", async function () {
-    const station = {
-      name: "Central",
-      district: "Test District",
-      state: "Test State"
-    };
+  it("should allow admin to add and remove police", async function () {
+    const POLICE_ROLE = await fir.POLICE_ROLE();
 
-    const idProof = {
-      idType: "Aadhar",
-      idNumber: "123456789012"
-    };
+    await fir.connect(government).addPolice(police1.address);
+    expect(await fir.hasRole(POLICE_ROLE, police1.address)).to.be.true;
 
-    const complainant = {
-      fullName: "John Doe",
-      parentName: "Jane Doe",
-      age: 30,
-      gender: "Male",
-      dob: "1990-01-01",
-      nationality: "Indian",
-      occupation: "Engineer",
-      addr: "123 Main St",
-      phoneNumber: "9876543210",
-      email: "john@example.com",
-      idProof
-    };
+    await fir.connect(government).removePolice(police1.address);
+    expect(await fir.hasRole(POLICE_ROLE, police1.address)).to.be.false;
+  });
 
-    const incident = {
-      occurrenceStart: Math.floor(Date.now() / 1000) - 3600,
-      occurrenceEnd: Math.floor(Date.now() / 1000),
-      place: "Market Street",
-      distanceFromStation: "1km",
-      offenceType: "Theft",
-      description: "Stolen phone",
-      actSections: "IPC 379"
-    };
+  it("should allow police to file FIR", async function () {
+    await fir.connect(government).addPolice(police1.address);
+    // const POLICE_ROLE = await fir.POLICE_ROLE();
+    const ipfsHash = "QmHash123";
+  
+    await fir.connect(police1).fileFIR(ipfsHash);
 
-    const accused = [{
-      name: "Thief",
-      aliasName: "Shadow",
-      addr: "Unknown",
-      age: 25,
-      gender: "Male",
-      relationWithComplainant: "Unknown"
-    }];
+    const firId = await fir.firCount();
+    expect(firId).to.equal(1);
+    expect(await fir.getFIR(0)).to.equal(ipfsHash);
+  });
 
-    const witnesses = [{
-      name: "Alice",
-      addr: "123 Witness Lane",
-      contactInfo: "alice@example.com"
-    }];
+  it("should not allow non-police to file FIR", async function () {
+    await expect(fir.connect(user).fileFIR("QmInvalid"))
+      .to.be.revertedWith("Caller is not a police officer");
+  });
 
-    const evidence = {
-      documents: ["doc1.pdf"],
-      mediaType: "CCTV",
-      mediaDescription: "Footage from street camera",
-      physicalDescription: "Black phone"
-    };
+  it("should not allow duplicate FIR", async function () {
+    await fir.connect(government).addPolice(police1.address);
 
-    const investigation = {
-      started: true,
-      ioName: "Inspector Raj",
-      ioRank: "Inspector",
-      ioBadgeNumber: "ID123",
-      dispatchDate: "2025-05-01"
-    };
+    const ipfsHash = "QmUniqueHash";
+      await fir.connect(police1).fileFIR(ipfsHash);
 
-    const tx = await fir.fileFIR("FIR001", station, complainant, incident, accused, witnesses, evidence, investigation);
-    await tx.wait();
-
-    const count = await fir.firCount();
-    expect(count).to.equal(1);
+    await expect(fir.connect(police1).fileFIR(ipfsHash)).to.be.revertedWith("FIR already filed");
   });
 });
-
