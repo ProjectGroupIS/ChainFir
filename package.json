@@ -1,0 +1,16 @@
+{
+  "name": "blockchain_project",
+  "private": true,
+  "workspaces": [
+    "Frontend",
+    "Solidity"
+  ],
+  "scripts": {
+    "start:frontend": "npm start --prefix Frontend",
+    "start:backend": "npm start --prefix Solidity",
+    "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\""
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  }
+}
