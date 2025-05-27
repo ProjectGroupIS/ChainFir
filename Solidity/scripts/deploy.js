@@ -6,6 +6,8 @@ async function main() {
 
   const Fir = await ethers.getContractFactory("Fir");
   const fir = await Fir.deploy(deployer.address);
+  console.log("deplloyer address:", deployer.address);
+  console.log("is Police", await fir.isPolice(deployer.address));
 
 //   await fir.deployed();
 

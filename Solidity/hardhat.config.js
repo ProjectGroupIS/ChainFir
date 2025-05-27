@@ -6,6 +6,7 @@ module.exports = {
   networks:{
     dev:{
       url:"http://localhost:8545",
+      chainId: 31337,
     },
     sepolia:{
       url:"https://sepolia.infura.io/v3/03ca51181bb34ef1944ee841e85cddae",
