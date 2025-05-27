@@ -1,14 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
+const {BrowserProvider} = ethers;
 import './FireForm.css';
 import axios from 'axios';
-// Ensure you have dotenv installed and configured
-// Import your contract ABI and addr
-// Replace this with your contract's ABI and address
-const contractABI = [
-// Example ABI fragment for submitFIR(string)
-import.meta.env.CONTRACT_ADDRESS
-];
+import contractABI from './FIR_ABI.json';
 
 function FIRForm() {
 const [isLightMode, setIsLightMode] = useState(() => {
@@ -120,20 +115,21 @@ const submitToBlockchain = async (jsonString) => {
 		alert("MetaMask is required to submit the FIR on blockchain.");
 		return;
 	}
+	const contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS;
 
 	try {
 		// Request account access if needed
-		await window.ethereum.request({ method: 'eth_requestAccounts' });
-
+		await window.ethereum.request({ method: 'eth_requestAccounts' }); 
 		// Setup provider and signer
-		const provider = new ethers.providers.Web3Provider(window.ethereum);
-		const signer = provider.getSigner();
+		const provider = new BrowserProvider(window.ethereum);
+		const signer = await provider.getSigner();
 
 		// Connect to contract
-		const contract = new ethers.Contract(contractAddress, contractABI, signer);
+		const contract = new ethers.Contract(contractAddress, contractABI.abi, signer);
+
 
 		// Send transaction
-		const tx = await contract.submitFIR(jsonString);
+		const tx = await contract.fileFIR(formData.complainant.fullName,jsonString);
 		alert('Transaction sent! Waiting for confirmation...');
 
 		// Wait for transaction confirmation
@@ -168,15 +164,13 @@ try {
 // Form submit handler
 const handleSubmit = async (e) => {
 	e.preventDefault();
+	const pinataHash = await uploadToPinata(formData);
+	console.log('Pinata Hash:', pinataHash);
+	if (pinataHash) {
+		await submitToBlockchain(pinataHash);
+	 alert('FIR submitted successfully! Hash: ' + pinataHash);
+	}
 
-	// Serialize form data to JSON string for sending to smart contract
-	// const jsonString = JSON.stringify(formData);
-
-	// console.log('Submitting FIR data:', formData);
-const pinataHash = await uploadToPinata(formData);
-console.log('Pinata Hash:', pinataHash);
-if (!pinataHash) 
-	await submitToBlockchain(pinataHash);
 };
 
 return (
@@ -212,11 +206,11 @@ return (
 				required
 			/>
 
-			<h2>2. Police Station Details</h2>
+			 <h2>2. Police Station Details</h2>
 			<input type="text" placeholder="Name" value={formData.policeStation.name} onChange={e => handleSectionChange('policeStation', 'name', e.target.value)} required />
 			<input type="text" placeholder="District" value={formData.policeStation.district} onChange={e => handleSectionChange('policeStation', 'district', e.target.value)} required />
 			<input type="text" placeholder="State" value={formData.policeStation.state} onChange={e => handleSectionChange('policeStation', 'state', e.target.value)} required />
-
+	
 			<h2>3. Complainant Details</h2>
 			<input type="text" placeholder="Full Name" value={formData.complainant.fullName} onChange={e => handleSectionChange('complainant', 'fullName', e.target.value)} required />
 			<input type="text" placeholder="Parent's Name" value={formData.complainant.parentsName} onChange={e => handleSectionChange('complainant', 'parentsName', e.target.value)} />
@@ -294,7 +288,7 @@ return (
 			<input type="text" placeholder="IO Rank" value={formData.investigationOfficer.ioRank} onChange={e => handleSectionChange('investigationOfficer', 'ioRank', e.target.value)} />
 			<input type="text" placeholder="IO Badge Number" value={formData.investigationOfficer.ioBadgeNumber} onChange={e => handleSectionChange('investigationOfficer', 'ioBadgeNumber', e.target.value)} />
 			<label>Dispatch Date</label>
-			<input type="date" value={formData.investigationOfficer.dispatchDate} onChange={e => handleSectionChange('investigationOfficer', 'dispatchDate', e.target.value)} />
+			<input type="date" value={formData.investigationOfficer.dispatchDate} onChange={e => handleSectionChange('investigationOfficer', 'dispatchDate', e.target.value)} /> 
 
 	
 			<button type="submit" >Submit FIR</button>

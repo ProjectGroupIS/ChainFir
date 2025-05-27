@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './Login';
 import SelectionPage from './SelectionPage';
 import FileFIR from './FireForm';
-// import ViewFIR from './ViewFIR';
+import ViewFIR from './GetFir';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/" element={<Login />} />
         <Route path="/select" element={<SelectionPage />} />
         <Route path="/file-fir" element={<FileFIR />} />
-        {/* <Route path="/view-fir" element={<ViewFIR />} /> */}
+        <Route path="/view-fir" element={<ViewFIR />} />
         <Route path="*" element={<div>404 Not Found</div>} />
       </Routes>
     </Router>

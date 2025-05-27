@@ -1,11 +1,18 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ethers } from 'ethers';
 import './Login.css';
 
 function Login() {
   const [account, setAccount] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    if(isLoggedIn) {
+      navigate('/select');
+    }
+  },[isLoggedIn, navigate])
 
   const connectWallet = async () => {
     try {
@@ -17,15 +24,17 @@ function Login() {
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       const address = accounts[0];
       setAccount(address);
+      setIsLoggedIn(true);
 
-      const provider = new ethers.BrowserProvider(window.ethereum);
+      const provider =  new ethers.BrowserProvider(window.ethereum);
+
       const signer = await provider.getSigner();
       const message = `Sign to login at ${new Date().toISOString()}`;
       await signer.signMessage(message);
+      console.log(isLoggedIn)
 
-      console.log("Navigating to /select...");
-      navigate('/select'); // ✅ This should now work
     } catch (error) {
+      console.error(error.message)
       
     }
   };

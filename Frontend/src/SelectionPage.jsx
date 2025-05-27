@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { useNavigate } from 'react-router-dom';
 import './SelectionPage.css';
 
@@ -9,7 +9,7 @@ function SelectionPage() {
     if (choice === 'file') {
       navigate('/file-fir');
     } else if (choice === 'view') {
-      alert("⚠️ View FIR page not implemented yet.");
+      navigate('/view-fir');
     }
   };
 
